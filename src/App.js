@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import './App.css';
 import ColorBox from './components/ColorBox';
+import TodoForm from './components/ToDoForm';
 import TodoList from './components/TodoList';
 
 function App() {
@@ -18,10 +19,23 @@ function App() {
     newTodoList.splice(todoIndex,1);
     setTodoList(newTodoList);
   }
+  function handleTodoFormSubmit(formValues){
+    console.log('form submit ',formValues);
+    // add new todo to current todoList
+    const newTodo={
+        id:todoList.length+1,
+        ...formValues//lấy tất cả key có trong formvalues
+    }
+    const newTodoList=[...todoList];
+    newTodoList.push(newTodo);
+    setTodoList(newTodoList);
+  }
   return (
 <div>
 <ColorBox/>
+
 <TodoList todos={todoList} onTodoClick={handleTodoClick}/>
+<TodoForm  onSubmit={handleTodoFormSubmit}/>
 </div>
 
   );
